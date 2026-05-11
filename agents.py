@@ -8,6 +8,11 @@ import requests
 
 load_dotenv()
 
+try:
+    import streamlit as st
+except Exception:  # pragma: no cover
+    st = None
+
 
 SYSTEM_PROMPT = """You are AGRO-DOC Smart Assistant, a practical agriculture helper for farmers.
 Give clear, safe, friendly, and detailed advice that a farmer can act on.
@@ -46,13 +51,29 @@ def _extract_response_text(data: dict) -> str:
     return "\n".join(output_parts).strip()
 
 
+def _setting(name: str, default: str = "") -> str:
+    value = os.getenv(name, "").strip()
+    if value:
+        return value
+
+    if st is not None:
+        try:
+            secret_value = st.secrets.get(name, "")
+            if secret_value:
+                return str(secret_value).strip()
+        except Exception:
+            pass
+
+    return default
+
+
 def ask_agro_agent(question: str, response_language: str = "English") -> str:
-    api_key = os.getenv("OPENAI_API_KEY", "").strip()
+    api_key = _setting("OPENAI_API_KEY")
 
     if not api_key or api_key == "your_openai_api_key_here":
         return _fallback_answer()
 
-    model = os.getenv("OPENAI_MODEL", "gpt-5.4-mini")
+    model = _setting("OPENAI_MODEL", "gpt-5.4-mini")
     payload = {
         "model": model,
         "input": [
@@ -67,7 +88,7 @@ def ask_agro_agent(question: str, response_language: str = "English") -> str:
                 ),
             },
         ],
-        "reasoning": {"effort": os.getenv("OPENAI_REASONING_EFFORT", "low")},
+        "reasoning": {"effort": _setting("OPENAI_REASONING_EFFORT", "low")},
     }
 
     try:
