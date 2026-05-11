@@ -2,6 +2,12 @@
 
 A Streamlit agriculture assistant that accepts questions in many languages, translates them to English, asks the LLM, and translates the final answer back to the user's language.
 
+## Live App
+
+Open the deployed app here:
+
+https://agrodocaiassist.streamlit.app/
+
 ## Project Flow
 
 ```text
@@ -37,6 +43,10 @@ streamlit run app.py
 ```
 
 ## Deploy
+
+Deployed app:
+
+https://agrodocaiassist.streamlit.app/
 
 Use Streamlit Community Cloud:
 
