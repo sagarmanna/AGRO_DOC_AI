@@ -8,6 +8,19 @@ Open the deployed app here:
 
 https://agrodocaiassist.streamlit.app/
 
+## Project Features
+
+- AI-powered farming question answering
+- Multilingual question support with automatic language detection
+- Answers in the user's selected or detected language
+- Farmer-friendly detailed guidance with practical steps
+- Crop disease, fertilizer, irrigation, weather, soil health, and farming scheme question support
+- Optional crop image upload for user context
+- Modern Streamlit dashboard UI
+- Custom AGRO-DOC AI branding and logo
+- OpenAI Responses API integration
+- Streamlit Cloud deployment support with secure secrets
+
 ## Project Flow
 
 ```text
